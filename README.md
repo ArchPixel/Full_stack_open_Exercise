@@ -1,7 +1,7 @@
 # full_stack_open_part0
 Exercise submission for full stack open course
 
-'''mermaid
+```mermaid
 sequenceDiagram
     participant browser
     participant server
@@ -34,4 +34,4 @@ sequenceDiagram
     deactivate server
 
     Note right of browser: The browser executes the callback function that renders the notes
-...
+```
