@@ -1,7 +1,7 @@
 # full_stack_open_part0
 Exercise submission for full stack open course
 
-## part0.4: New not diagram
+## part0.4: New note diagram
 ```mermaid
 sequenceDiagram
     participant browser
