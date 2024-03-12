@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 const Header = (props) => {
-  console.log(props)
   return (
     <>
       <h1>{props.title}</h1>      
@@ -11,6 +10,38 @@ const Header = (props) => {
 
 const Button = ({onClick,text}) => (<button onClick={onClick}>{text}</button>)
 
+const Statistics = ({good,neutral,bad}) => {
+  const total = good + neutral + bad
+  if (total === 0) {
+    return (
+      <>No feedback given</>
+    )
+  }
+  return (
+    <>
+    <table>
+      <tbody>
+      <StatisticLine text='good' value={good}/>
+      <StatisticLine text='neutral' value={neutral}/>
+      <StatisticLine text='bad' value={bad}/>
+      <StatisticLine text='total' value={total}/>
+      <StatisticLine text='average' value={(good-bad)/total}/>
+      <tr><td>positive</td><td>{good*100/total} %</td></tr>
+      </tbody>
+    </table>
+    </>
+  )
+}
+
+const StatisticLine = ({text,value}) => 
+(
+<>
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
+</>)
+
 function App() {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
@@ -18,19 +49,19 @@ function App() {
 
   const handleGood = () => {
     const goodPlusOne = good + 1
-    console.log(goodPlusOne)
+    console.log('good',goodPlusOne)
     setGood(goodPlusOne)
   }
 
   const handleNeutral = () => {
     const neutralPlusOne = neutral + 1
-    console.log(neutralPlusOne)
+    console.log('neutral',neutralPlusOne)
     setNeutral(neutralPlusOne)
   }
 
   const handleBad = () => {
     const badPlusOne = bad + 1
-    console.log(badPlusOne)
+    console.log('bad',badPlusOne)
     setBad(badPlusOne)
   }
 
@@ -46,15 +77,10 @@ function App() {
       <Button onClick={handleNeutral} text='neutral'/>
       <Button onClick={handleBad} text='bad'/>
       <Header title = {titles.t2}/>
-      <p>good {good} 
-      <br/>neutral {neutral} 
-      <br/>bad {bad} 
-      <br/>all {good+neutral+bad} 
-      <br/>average {(good-bad)/(good+neutral+bad)}
-      <br/>positive {good*100/(good+neutral+bad)} %
-      </p>
+      <Statistics good = {good} neutral = {neutral} bad = {bad}/>
     </>
   )
 }
 
 export default App
+
